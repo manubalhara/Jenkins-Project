@@ -44,5 +44,11 @@ pipeline {
                 subject: "Build Successful: ${currentBuild.fullDisplayName}",
                 body: "The build was successful."
                 }
+
+        failure {
+                mail to:"harshitbal80@gmail.com",
+                subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                body: "The build has failed. Please check the logs for details."
+                }
         }
 }
