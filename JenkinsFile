@@ -42,7 +42,7 @@ pipeline {
         success {
                 mail to:"harshitbal80@gmail.com",
                 subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                body: "The build was successful.",
+                body: "The build was successful."
                 }
         }
 }
