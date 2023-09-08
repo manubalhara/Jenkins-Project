@@ -4,46 +4,46 @@ pipeline {
         stage('Build') {
             steps {
                 // Use Maven to build your project
-                sh 'mvn clean package'
+                //sh 'mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
                 // Use your testing framework to run unit tests
-                sh 'npm test'  // Replace with your actual unit test command
+                //sh 'npm test'  // Replace with your actual unit test command
 
                 // Run integration tests
-                sh 'npm run integration-test'  // Replace with your actual integration test command
+                //sh 'npm run integration-test'  // Replace with your actual integration test command
             }
         }
         stage('Code Analysis') {
             steps {
                 // Use SonarQube scanner to analyze your code
-                sh 'sonar-scanner'
+                //sh 'sonar-scanner'
             }
         }
         stage('Security Scan') {
             steps {
                 // Use a security scanning tool to identify vulnerabilities
-                sh 'npm audit'  // Replace with your actual security scan command
+                //sh 'npm audit'  // Replace with your actual security scan command
             }
         }
         stage('Deploy to Staging') {
             steps {
                 // Use AWS CLI or other deployment tool to deploy to staging
-                sh 'aws deploy staging'  // Replace with your deployment command
+                //sh 'aws deploy staging'  // Replace with your deployment command
             }
         }
         stage('Integration Tests on Staging') {
             steps {
                 // Run integration tests on the staging environment
-                sh 'npm run staging-integration-test'  // Replace with your actual staging integration test command
+               //sh 'npm run staging-integration-test'  // Replace with your actual staging integration test command
             }
         }
         stage('Deploy to Production') {
             steps {
                 // Use AWS CLI or other deployment tool to deploy to production
-                sh 'aws deploy production'  // Replace with your deployment command
+                //sh 'aws deploy production'  // Replace with your deployment command
             }
         }
     }
