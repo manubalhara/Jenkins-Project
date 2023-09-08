@@ -3,33 +3,62 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Use a build automation tool like Maven
+                // Use Maven to build your project
                 sh 'mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                // Use test automation tools
-                sh 'run_unit_tests'
-                sh 'run_integration_tests'
+                // Use your testing framework to run unit tests
+                sh 'npm test'  // Replace with your actual unit test command
+
+                // Run integration tests
+                sh 'npm run integration-test'  // Replace with your actual integration test command
             }
         }
-        // Add stages 3 to 7 as described in the task
+        stage('Code Analysis') {
+            steps {
+                // Use SonarQube scanner to analyze your code
+                sh 'sonar-scanner'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                // Use a security scanning tool to identify vulnerabilities
+                sh 'npm audit'  // Replace with your actual security scan command
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                // Use AWS CLI or other deployment tool to deploy to staging
+                sh 'aws deploy staging'  // Replace with your deployment command
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                // Run integration tests on the staging environment
+                sh 'npm run staging-integration-test'  // Replace with your actual staging integration test command
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                // Use AWS CLI or other deployment tool to deploy to production
+                sh 'aws deploy production'  // Replace with your deployment command
+            }
+        }
     }
     post {
-    failure {
-        emailext (
-            subject: "Build Failed: ${currentBuild.fullDisplayName}",
-            body: "The build has failed. Please check the logs for details.",
-            to: 'harshitbal80@gmail.com'
-        )
+        success {
+            emailext (
+                subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                body: "The build was successful.",
+                to: 'your@email.com'
+        }
+        failure {
+            emailext (
+                subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                body: "The build has failed. Please check the logs for details.",
+                to: 'your@email.com'
+            )
     }
-    success {
-        emailext (
-            subject: "Build Successful: ${currentBuild.fullDisplayName}",
-            body: "The build was successful.",
-            to: 'harshitbal80@gmail.com'
-        )
-    }
-}
 }
