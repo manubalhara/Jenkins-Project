@@ -21,6 +21,7 @@ pipeline {
             steps {
                 // Use SonarQube scanner to analyze your code
                 //sh 'sonar-scanner'
+                echo "Trying"
             }
         }
         stage('Security Scan') {
