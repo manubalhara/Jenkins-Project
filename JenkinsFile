@@ -46,13 +46,14 @@ pipeline {
                 sh 'aws deploy production'  // Replace with your deployment command
             }
         }
+    }
     post {
         success {
             emailext (
                 subject: "Build Successful: ${currentBuild.fullDisplayName}",
                 body: "The build was successful.",
                 to: 'harshitbal80@gmail.com'
-        )
+            )
         }
         failure {
             emailext (
@@ -61,6 +62,5 @@ pipeline {
                 to: 'harshitbal80@gmail.com'
             )
         }
-        }
-}
+    }
 }
