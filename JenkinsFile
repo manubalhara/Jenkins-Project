@@ -39,6 +39,7 @@ pipeline {
                         body: "The build was successful. \n Integration Tests on Staging",
                         attachLog: true
                             )
+            echo "Success email notification sent."
                         }
                     }
                 }
