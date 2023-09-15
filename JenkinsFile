@@ -21,19 +21,6 @@ pipeline {
                 echo "Use a security scanning tool to identify vulnerabilities"
                 echo "Trying npm audit"
             }
-             post {
-                            success {
-                                    mail to:"harshitbal80@gmail.com",
-                                    subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                                    body: "The build was successful. \n Security Scan: ${attachLog: true}"
-                                    }
-                    
-                            failure {
-                                    mail to:"harshitbal80@gmail.com",
-                                    subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                                    body: "The build has failed. Please check the logs for details."
-                                    }
-                  }
         }
         stage('Deploy to Staging') {
             steps {
