@@ -51,17 +51,16 @@ pipeline {
                         subject: "Build Successful: ${currentBuild.fullDisplayName}",
                         body: "The build was successful. \n Integration Tests on Staging",
                         attachLog: true
-                    )
-}
-}
-}
-
-        }
+                            )
+                        }
+                    }
+                }
         stage('Deploy to Production') {
-            steps {
-                echo "Use AWS CLI or other deployment tool to deploy to production"
-            }
+                    steps {
+                        echo "Use AWS CLI or other deployment tool to deploy to production"
+                    }
+                }
+        
         }
     }
     
-}
