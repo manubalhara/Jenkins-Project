@@ -44,19 +44,18 @@ pipeline {
             steps {
                 echo "Running"
             }
-            post {
+                post {
                 success {
-                        mail to:"harshitbal80@gmail.com",
+                    emailext (
+                        to: "ulinduperera434@gmail.com",
                         subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                        body: "The build was successful. \n Integration Tests on Staging: ${attachLog: true}"
-                        }
-        
-                failure {
-                        mail to:"harshitbal80@gmail.com",
-                        subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                        body: "The build has failed. Please check the logs for details."
-                        }
-                }
+                        body: "The build was successful. \n Integration Tests on Staging",
+                        attachLog: true
+                    )
+}
+}
+}
+
         }
         stage('Deploy to Production') {
             steps {
