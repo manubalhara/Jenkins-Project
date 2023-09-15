@@ -35,7 +35,7 @@ pipeline {
                 success {
                         mail to:"harshitbal80@gmail.com",
                         subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                        body: "The build was successful. \n Integration Tests on Staging: ${attachLog: Success}"
+                        body: "The build was successful. \n Integration Tests on Staging: ${attachLog: True}"
                         }
         
                 failure {
