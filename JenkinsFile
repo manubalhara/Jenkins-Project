@@ -24,7 +24,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:"Build Status:  ${currentBuild.result}",
-                body:"Build Status:  ${currentBuild.result}",
+                body:"Please check the logs for details.",
                 attachLog: true
             )
         }
@@ -33,7 +33,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:'Build Status:  ${currentBuild.result}',
-                body:'Build Status:  ${currentBuild.result}',
+                body:"Please check the logs for details.",
                 attachLog: true
             )
         }
@@ -59,7 +59,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:"Build Status:  ${currentBuild.result}",
-                body:"Build Status:  ${currentBuild.result}",
+                body:"Please check the logs for details.",
                 attachLog: true
             )
         }
@@ -69,7 +69,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:"Build Status:  ${currentBuild.result}",
-                body:"Build Status:  ${currentBuild.result}. Please check the logs for details.",
+                body:"Please check the logs for details.",
                 attachLog: true
             )
         }
