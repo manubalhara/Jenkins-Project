@@ -51,24 +51,15 @@ pipeline{
                 echo "Security scans succesfully completed"
             }
             post {
-                failure {
-                    emailext(
-                        to: 'harshitbal80@gmail.com',
-                        subject: 'Security Scan Failed',
-                        body: 'Security Scan failed.Please Check attached logs for more details.',
-                        attachLog: true  
-                    ) 
-                }
-                success {
-                    emailext(
-                        to: 'harshitbal80@gmail.com',
-                        subject: 'Security Scan Succeeded',
-                        body: 'Security Scan succeeded.Please check attached logs for details.',
-                        attachLog: true 
-                    )   
-                }
+              success {
+                    archiveArtifacts artifacts: '*/target/.log', allowEmptyArchive: true
+                    emailext subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                              body: "The build was successful.",
+                              attachmentsPattern: '*/target/.log',
+                              to: 'harshitbal80@gmail.com'
             }
         }
+}
 
         stage('Deploy to Staging'){
             steps{
