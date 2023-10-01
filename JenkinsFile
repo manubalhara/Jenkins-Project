@@ -29,6 +29,7 @@ pipeline {
                 to: 'harshitbal80@gmail.com',
                 subject:'Build Status: ${currentBuild.result}',
                 body:'Build Status: ${currentBuild.result}',
+                attachLog: true,
                 attachmentsPattern: '**/logs/*.log'
             )
         }
