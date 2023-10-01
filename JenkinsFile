@@ -20,7 +20,7 @@ pipeline{
 post {
         success {
                 emailext 
-                attachLog: true, 
+                attachLog: True, 
                 body: "${currentBuild.result}: ${BUILD_URL}", 
                 compressLog: true, 
                 replyTo: 'harshitbal80@gmail.com',
