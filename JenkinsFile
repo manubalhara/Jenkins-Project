@@ -19,17 +19,19 @@ pipeline {
             }
             
             post {
-                success {
-                    mail to: "harshitbal80@gmail.com",
-                    subject: "Unit and Integration Tests Successful: ${currentBuild.fullDisplayName}",
-                    body: "The unit and integration tests were successful."
-                }
-                failure {
-                    mail to: "harshitbal80@gmail.com",
-                    subject: "Unit and Integration Tests Failed: ${currentBuild.fullDisplayName}",
-                    body: "The unit and integration tests have failed. Please check the logs for details."
-                }
-            }
+        success {
+            // Archive the log files or any other artifacts you want to attach to the email
+            archiveArtifacts artifacts: '**/logs/*.log', allowEmptyArchive: true
+
+            // Send an email with the archived log files
+            emailext(
+                subject: "Build Status: ${currentBuild.result}",
+                body: "Build Status: ${currentBuild.result}",
+                to: 'harshitbal80@gmai.com',
+                attachmentsPattern: '**/logs/*.log',
+            )
+        }
+    }
         }
 
         stage('Code Analysis') {
