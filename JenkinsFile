@@ -17,30 +17,19 @@ pipeline{
                 echo "Intergration tests started with Selenium"
                 echo "Intergration tests completed."
             }
-    post {
+post {
         success {
-            script {
-                def emailBody = ""
-                currentBuild.rawBuild.getLog(1000).each { line ->
-                    emailBody += line + '\n'
+                mail to:"harshitbal80@gmail.com",
+                subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                body: "The build was successful."
                 }
-                mail to: "harshitbal80@gmail.com",
-                     subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                     body: "The build was successful.\n\nLogs:\n\n$emailBody"
-            }
-        }
+
         failure {
-            script {
-                def emailBody = ""
-                currentBuild.rawBuild.getLog(1000).each { line ->
-                    emailBody += line + '\n'
+                mail to:"harshitbal80@gmail.com",
+                subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                body: "The build has failed. Please check the logs for details."
                 }
-                mail to: "harshitbal80@gmail.com",
-                     subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                     body: "The build has failed. Please check the logs for details.\n\nLogs:\n\n$emailBody"
-            }
         }
-    }
 }
 
         
