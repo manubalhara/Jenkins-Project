@@ -1,87 +1,82 @@
-pipeline{
+pipeline {
     agent any
    
-    stages{
-        stage('Build'){
-            steps{
+    stages {
+        stage('Build') {
+            steps {
                 echo "Code fetched from https://github.com/manubalhara/Jenkins-Project.git"
-                echo "Bulding Initiated using Maven"
-                echo "Build succesfully"
+                echo "Building Initiated using Maven"
+                echo "Build successful"
             }
         }
 
-        stage('Unit and Integration Tests'){
-            steps{
+        stage('Unit and Integration Tests') {
+            steps {
                 echo "Unit tests Initiated with NUint"
                 echo "Unit tests completed."
-                echo "Intergration tests started with Selenium"
-                echo "Intergration tests completed."
+                echo "Integration tests started with Selenium"
+                echo "Integration tests completed."
             }
-    post {
-            success {
-                        script {
-                            def logContent = readFile("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log")
-                            emailext body: "Unit and Integration Tests Logs:\n\n${logContent}",
-                                    subject: "Unit and Integration Tests Report: ${currentBuild.fullDisplayName}",
-                                    to: "harshitbal80@gmail.com",
-                                    mimeType: 'text/plain'
-                        }
-    
-            failure {
-                    mail to:"harshitbal80@gmail.com",
-                    subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                    body: "The build has failed. Please check the logs for details."
-                    }
-            }
-    }
-
-        }
-
-        stage('Code Analysis'){
-            steps{
-                echo "Code analysis started with Veracode"
-                echo "Code analysis succesfully completed"
-            }
-        }
-
-        stage('Security Scan'){
-            steps{
-                echo "Security scans started with 42Crunch"
-                echo "Security scans succesfully completed"
-            }
+            
             post {
-        success {
-                mail to:"harshitbal80@gmail.com",
-                subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                body: "The build was successful."
+                success {
+                    mail to: "harshitbal80@gmail.com",
+                    subject: "Unit and Integration Tests Successful: ${currentBuild.fullDisplayName}",
+                    body: "The unit and integration tests were successful."
                 }
-
-        failure {
-                mail to:"harshitbal80@gmail.com",
-                subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                body: "The build has failed. Please check the logs for details."
+                failure {
+                    mail to: "harshitbal80@gmail.com",
+                    subject: "Unit and Integration Tests Failed: ${currentBuild.fullDisplayName}",
+                    body: "The unit and integration tests have failed. Please check the logs for details."
                 }
+            }
         }
-}
 
-        stage('Deploy to Staging'){
-            steps{
-                echo "Stagging deployment started"
+        stage('Code Analysis') {
+            steps {
+                echo "Code analysis started with Veracode"
+                echo "Code analysis successfully completed"
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo "Security scans started with 42Crunch"
+                echo "Security scans successfully completed"
+            }
+            
+            post {
+                success {
+                    mail to: "harshitbal80@gmail.com",
+                    subject: "Security Scan Successful: ${currentBuild.fullDisplayName}",
+                    body: "The security scan was successful."
+                }
+                failure {
+                    mail to: "harshitbal80@gmail.com",
+                    subject: "Security Scan Failed: ${currentBuild.fullDisplayName}",
+                    body: "The security scan has failed. Please check the logs for details."
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo "Staging deployment started"
                 echo "Deployed to AWS EC2 instance-id: i-4214535890abcdef0 staging server"
             }
         }
 
-        stage('Integration Tests on Staging'){
-            steps{
-                echo "Intergration tests started with Selenium"
-                echo "Intergration tests completed succesfully."
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Integration tests started with Selenium"
+                echo "Integration tests completed successfully."
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Stagging deployment started"
-                echo "Deployed to AWS EC2 instance-i-4214535890abcdef0 staging server"
+                echo "Production deployment started"
+                echo "Deployed to AWS EC2 instance-i-4214535890abcdef0 production server"
             }
         }
     }
