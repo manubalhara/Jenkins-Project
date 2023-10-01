@@ -20,14 +20,21 @@ pipeline {
             
        post {
         success {
-            echo "Unit and Integration Tests stage succeeded"  // Add this line for debugging
-
-            // Send an email with the archived log files
+            echo "Unit and Integration Tests stage SUCCEDED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:'Build Status:  ${currentBuild.fullDisplayName}',
                 body:'Build Status:  ${currentBuild.fullDisplayName}',
-                attachLog: true,
+                attachLog: true
+            )
+        }
+        failure {
+            echo "Unit and Integration Tests stage FAILED"  // Add this line for debugging
+            emailext(
+                to: 'harshitbal80@gmail.com',
+                subject:'Build Status:  ${currentBuild.fullDisplayName}',
+                body:'Build Status:  ${currentBuild.fullDisplayName}',
+                attachLog: true
             )
         }
     }
