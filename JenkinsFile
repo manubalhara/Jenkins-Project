@@ -24,7 +24,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:"Build Status:  ${currentBuild.result}",
-                body:"Build Status:  ${currentBuild.fullDisplayName}",
+                body:"Build Status:  ${currentBuild.result}",
                 attachLog: true
             )
         }
@@ -32,8 +32,8 @@ pipeline {
             echo "Unit and Integration Tests stage FAILED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:'Build Status:  ${currentBuild.fullDisplayName}',
-                body:'Build Status:  ${currentBuild.fullDisplayName}',
+                subject:'Build Status:  ${currentBuild.result}',
+                body:'Build Status:  ${currentBuild.result}',
                 attachLog: true
             )
         }
@@ -67,8 +67,8 @@ pipeline {
             echo "Unit and Integration Tests stage FAILED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:'Build Status:  ${currentBuild.fullDisplayName}',
-                body:'Build Status:  ${currentBuild.fullDisplayName}. Please check the logs for details.',
+                subject:'Build Status:  ${currentBuild.result}',
+                body:'Build Status:  ${currentBuild.result}. Please check the logs for details.',
                 attachLog: true
             )
         }
