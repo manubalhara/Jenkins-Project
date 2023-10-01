@@ -23,8 +23,8 @@ pipeline {
             echo "Unit and Integration Tests stage SUCCEDED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:'Build Status:  ${currentBuild.fullDisplayName}',
-                body:'Build Status:  ${currentBuild.fullDisplayName}',
+                subject:"Build Status:  ${currentBuild.result}",
+                body:"Build Status:  ${currentBuild.fullDisplayName}",
                 attachLog: true
             )
         }
@@ -53,18 +53,26 @@ pipeline {
                 echo "Security scans successfully completed"
             }
             
-            post {
-                success {
-                    mail to: "harshitbal80@gmail.com",
-                    subject: "Security Scan Successful: ${currentBuild.fullDisplayName}",
-                    body: "The security scan was successful."
-                }
-                failure {
-                    mail to: "harshitbal80@gmail.com",
-                    subject: "Security Scan Failed: ${currentBuild.fullDisplayName}",
-                    body: "The security scan has failed. Please check the logs for details."
-                }
-            }
+                   post {
+        success {
+            echo "Unit and Integration Tests stage SUCCEDED"  // Add this line for debugging
+            emailext(
+                to: 'harshitbal80@gmail.com',
+                subject:'Build Status:  ${currentBuild.fullDisplayName}',
+                body:'Build Status:  ${currentBuild.fullDisplayName}',
+                attachLog: true
+            )
+        }
+        failure {
+            echo "Unit and Integration Tests stage FAILED"  // Add this line for debugging
+            emailext(
+                to: 'harshitbal80@gmail.com',
+                subject:'Build Status:  ${currentBuild.fullDisplayName}',
+                body:'Build Status:  ${currentBuild.fullDisplayName}. Please check the logs for details.',
+                attachLog: true
+            )
+        }
+    }
         }
 
         stage('Deploy to Staging') {
