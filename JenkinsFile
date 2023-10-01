@@ -24,7 +24,7 @@ pipeline {
             emailext(
                 to: 'harshitbal80@gmail.com',
                 subject:"Build Status:  ${currentBuild.fullDisplayName}",
-                body:"Please check the logs for details.",
+                body:"Build Status:  ${currentBuild.result}. Please check the logs for details.",
                 attachLog: true
             )
         }
@@ -58,7 +58,7 @@ pipeline {
             echo "Unit and Integration Tests stage SUCCEDED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:"Build Status:  ${currentBuild.result}",
+                subject:"Security Scan:  ${currentBuild.result}",
                 body:"Please check the logs for details.",
                 attachLog: true
             )
@@ -68,7 +68,7 @@ pipeline {
             echo "Security Scan Tests stage FAILED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:"Build Status:  ${currentBuild.result}",
+                subject:"Security Scan:  ${currentBuild.result}",
                 body:"Please check the logs for details.",
                 attachLog: true
             )
