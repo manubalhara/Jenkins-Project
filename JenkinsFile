@@ -17,26 +17,25 @@ pipeline{
                 echo "Intergration tests started with Selenium"
                 echo "Intergration tests completed."
             }
-post {
-        success {
-                emailext 
-                attachLog:True, 
-                body: "${currentBuild.result}: ${BUILD_URL}", 
-                compressLog: true, 
-                replyTo: 'harshitbal80@gmail.com',
-                subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
-                to: 'harshitbal80@gmail.com'
-                }
+    post {
+            success {
+                        script {
+                            def logContent = readFile("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/log")
+                            emailext body: "Unit and Integration Tests Logs:\n\n${logContent}",
+                                    subject: "Unit and Integration Tests Report: ${currentBuild.fullDisplayName}",
+                                    to: "harshitbal80@gmail.com",
+                                    mimeType: 'text/plain'
+                        }
+    
+            failure {
+                    mail to:"harshitbal80@gmail.com",
+                    subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                    body: "The build has failed. Please check the logs for details."
+                    }
+            }
+    }
 
-        failure {
-                mail to:"harshitbal80@gmail.com",
-                subject: "Build Failed: ${currentBuild.fullDisplayName}",
-                body: "The build has failed. Please check the logs for details."
-                }
         }
-}
-
-        
 
         stage('Code Analysis'){
             steps{
