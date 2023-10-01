@@ -55,14 +55,15 @@ pipeline {
             
                    post {
         success {
-            echo "Security Scan stage SUCCEDED"  // Add this line for debugging
+            echo "Unit and Integration Tests stage SUCCEDED"  // Add this line for debugging
             emailext(
                 to: 'harshitbal80@gmail.com',
-                subject:'Build Status:  ${currentBuild.result}',
-                body:'Build Status:  ${currentBuild.result}',
+                subject:"Build Status:  ${currentBuild.result}",
+                body:"Build Status:  ${currentBuild.result}",
                 attachLog: true
             )
         }
+
         failure {
             echo "Security Scan Tests stage FAILED"  // Add this line for debugging
             emailext(
