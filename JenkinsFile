@@ -25,10 +25,10 @@ pipeline {
 
             // Send an email with the archived log files
             emailext(
+                mail to: 'harshitbal80@gmai.com',
                 subject: "Build Status: ${currentBuild.result}",
                 body: "Build Status: ${currentBuild.result}",
-                to: 'harshitbal80@gmai.com',
-                attachmentsPattern: '**/logs/*.log',
+                attachmentsPattern: '**/logs/*.log'
             )
         }
     }
