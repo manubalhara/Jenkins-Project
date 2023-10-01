@@ -19,10 +19,13 @@ pipeline{
             }
 post {
         success {
-                mail to:"harshitbal80@gmail.com",
-                subject: "Build Successful: ${currentBuild.fullDisplayName}",
-                body: "The build was successful.",
-                attachLog:True
+                emailext 
+                attachLog: true, 
+                body: "${currentBuild.result}: ${BUILD_URL}", 
+                compressLog: true, 
+                replyTo: 'harshitbal80@gmail.com',
+                subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
+                to: 'harshitbal80@gmail.com'
                 }
 
         failure {
